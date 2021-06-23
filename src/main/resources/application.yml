@@ -1,0 +1,24 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: jdbc:h2:mem:querydsl
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true # log
+#        show_sql: true # console
+
+logging.level:
+    org.hibernate:
+      SQL: debug
+#      type: trace # ? 보기
+
