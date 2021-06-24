@@ -1,5 +1,7 @@
 package co.wordbe.querydsl;
 
+import co.wordbe.querydsl.entity.Hello;
+import co.wordbe.querydsl.entity.QHello;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

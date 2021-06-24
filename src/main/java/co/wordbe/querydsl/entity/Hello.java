@@ -1,5 +1,5 @@
 
-package co.wordbe.querydsl;
+package co.wordbe.querydsl.entity;
 
 import lombok.Getter;
 import lombok.Setter;
