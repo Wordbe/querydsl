@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static co.wordbe.querydsl.entity.QMember.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -56,14 +57,40 @@ public class QuerydslBasicTest {
 
     @Test
     public void startQuerydsl() {
-        QMember m = new QMember("m");
+//        QMember m = new QMember("m");
+//        QMember m = QMember.member;
 
         Member member1 = queryFactory
-                .select(m)
-                .from(m)
-                .where(m.username.eq("member1"))
+                .select(member)
+                .from(member)
+                .where(member.username.eq("member1"))
                 .fetchOne();
 
+        assertThat(member1.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void search() {
+        Member member1 = queryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1")
+                        .and(member.age.eq(10)))
+                .fetchOne();
+        assertThat(member1.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void searchAndParam() {
+        // search 와 똑같다.
+        // 동적 쿼리 만들 때 좋다.
+
+        Member member1 = queryFactory
+                .selectFrom(member)
+                .where(
+                        member.username.eq("member1"),
+                        member.age.eq(10)
+                )
+                .fetchOne();
         assertThat(member1.getUsername()).isEqualTo("member1");
     }
 }
