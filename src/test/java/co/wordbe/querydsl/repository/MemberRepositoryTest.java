@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -69,5 +71,16 @@ public class MemberRepositoryTest {
 
         assertThat(result).extracting("username")
                 .containsExactly("member4");
+    }
+
+    @Test
+    public void searchPageSimpleTest() {
+        MemberSearchCondition condition = new MemberSearchCondition();
+        PageRequest pageRequest = PageRequest.of(0, 3);
+
+        Page<MemberTeamDto> result = memberRepository.searchPageSimple(condition, pageRequest);
+
+        assertThat(result).extracting("username")
+                .containsExactly("member1", "member2", "member3");
     }
 }
